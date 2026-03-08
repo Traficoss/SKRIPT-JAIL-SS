@@ -27,7 +27,6 @@ Este script permite que staff coloque jogadores em **ScreenShare (SS)** para ver
 | `/jail <player>` | Coloca o jogador em ScreenShare |
 | `/silentjail <player>` | Coloca em SS sem avisar o servidor |
 | `/unjail <player>` | Remove o jogador da jail |
-| `/jailchat <mensagem>` | Envia mensagem no chat da jail |
 
 ---
 
