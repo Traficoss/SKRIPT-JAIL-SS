@@ -1,9 +1,5 @@
 # 🔒 Jail ScreenShare Skript
 
-![Minecraft](https://img.shields.io/badge/Minecraft-1.8%2B-green)
-![Skript](https://img.shields.io/badge/Skript-supported-blue)
-![Status](https://img.shields.io/badge/status-active-success)
-
 Sistema de **Jail e ScreenShare** feito em **Skript** para servidores Minecraft.
 
 Este script permite que staff coloque jogadores em **ScreenShare (SS)** para verificação, com suporte a **silent jail**, bloqueio de comandos e detecção de logout.
@@ -13,12 +9,13 @@ Este script permite que staff coloque jogadores em **ScreenShare (SS)** para ver
 # ✨ Features
 
 - 🔒 Sistema de **Jail**
-- 🤫 **Silent Jail** (sem aviso global)
+- 🤫 **Silent Jail**
+- 📍 Sistema de **Set Jail**
 - 🚫 Bloqueio de comandos enquanto preso
 - 🛑 Bloqueio de movimento
 - 💬 Chat local dentro da jail
 - ⚠️ Detecta logout durante ScreenShare
-- 🔓 Sistema de **Unjail automático**
+- 🔓 Sistema de **Unjail**
 
 ---
 
@@ -26,24 +23,27 @@ Este script permite que staff coloque jogadores em **ScreenShare (SS)** para ver
 
 | Comando | Descrição |
 |-------|--------|
+| `/setjail` | Define a localização da jail |
 | `/jail <player>` | Coloca o jogador em ScreenShare |
 | `/silentjail <player>` | Coloca em SS sem avisar o servidor |
 | `/unjail <player>` | Remove o jogador da jail |
+| `/jailchat <mensagem>` | Envia mensagem no chat da jail |
 
 ---
 
-# ⚙️ Requisitos
+# ⚙️ Como configurar
 
-Para usar este script você precisa de:
+Antes de usar o sistema você precisa **definir a jail**.
 
-- **Minecraft 1.8+**
-- **Spigot / Paper**
-- **Skript Plugin**
+1️⃣ Vá até o local onde quer que fique a jail.
 
-Plugins recomendados:
+2️⃣ Use o comando:
 
-- SkBee (opcional)
-- SkQuery (opcional)
+```
+/setjail
+```
+
+Isso irá salvar a localização da jail.
 
 ---
 
