@@ -1,0 +1,175 @@
+#################################
+# JAIL / SCREENSHARE - BY: TRAFICOS
+#################################
+
+options:
+    localChatRadius: 5
+
+#################################
+# SET / UNSET JAIL
+#################################
+
+command /setjail:
+    permission: jail.admin
+    trigger:
+        set {jail.loc} to location of player
+        send "&cLocal da jail definido permanentemente."
+
+command /unsetjail:
+    permission: jail.admin
+    trigger:
+        if {jail.loc} is not set:
+            send "&cNenhuma jail definida."
+            stop
+        delete {jail.loc}
+        send "&aLocal da jail removido."
+
+#################################
+# JAIL NORMAL (COM AVISO GLOBAL)
+#################################
+
+command /jail <player>:
+    permission: jail.use
+    trigger:
+        if arg-1 is not online:
+            send "&cJogador não encontrado."
+            stop
+        if {jail.loc} is not set:
+            send "&cUse /setjail primeiro."
+            stop
+
+        set {jail.%uuid of arg-1%} to true
+        delete {silent_jail.%uuid of arg-1%} # garante que não seja silent
+
+        teleport arg-1 to {jail.loc}
+
+        play sound "entity.enderman.teleport" with volume 1 and pitch 1 for all players
+
+        # MENSAGEM GLOBAL EM ESTILO CAIXA VERMELHA
+        broadcast " "
+        broadcast "&4━━━━━━━━━━━━━━━━━━━━"
+        broadcast "&c%arg-1% foi puxado para ScreenShare"
+        broadcast "&cPor: %player%"
+        broadcast "&4━━━━━━━━━━━━━━━━━━━━"
+        broadcast " "
+
+        # MENSAGEM PRIVADA – ANYDESK
+        send " " to arg-1
+        send "&4━━━━━━━━━━━━━━━━━━━━" to arg-1
+        send " " to arg-1
+        send "&cVocê foi puxado para &4ScreenShare" to arg-1
+        send " " to arg-1
+        send "&cBaixe o AnyDesk:" to arg-1
+        send " " to arg-1
+        send "&fhttps://anydesk.com/pt/downloads/windows" to arg-1
+        send " " to arg-1
+        send "&cAbra o programa e envie o &4código&c pelo chat." to arg-1
+        send " " to arg-1
+        send "&4━━━━━━━━━━━━━━━━━━━━" to arg-1
+        send " " to arg-1
+
+#################################
+# SILENT JAIL (SEM AVISO GLOBAL)
+#################################
+
+command /silentjail <player>:
+    permission: jail.use
+    trigger:
+        if arg-1 is not online:
+            send "&cJogador não encontrado."
+            stop
+        if {jail.loc} is not set:
+            send "&cUse /setjail primeiro."
+            stop
+
+        set {jail.%uuid of arg-1%} to true
+        set {silent_jail.%uuid of arg-1%} to true
+
+        teleport arg-1 to {jail.loc}
+
+        play sound "entity.enderman.teleport" with volume 1 and pitch 1 for all players
+
+        # MENSAGEM PRIVADA EM ESTILO CAIXA VERMELHA
+        send " " to arg-1
+        send "&4━━━━━━━━━━━━━━━━━━━━" to arg-1
+        send " " to arg-1
+        send "&cVocê foi puxado para &4ScreenShare" to arg-1
+        send " " to arg-1
+        send "&cBaixe o AnyDesk:" to arg-1
+        send " " to arg-1
+        send "&fhttps://anydesk.com/pt/downloads/windows" to arg-1
+        send " " to arg-1
+        send "&cAbra o programa e envie o &4código&c pelo chat." to arg-1
+        send " " to arg-1
+        send "&4━━━━━━━━━━━━━━━━━━━━" to arg-1
+        send " " to arg-1
+
+#################################
+# UNJAIL COM RECONHECIMENTO SILENT AUTOMÁTICO
+#################################
+
+command /unjail <player>:
+    permission: jail.use
+    trigger:
+        if arg-1 is not online:
+            send "&cJogador não encontrado."
+            stop
+
+        if {jail.%uuid of arg-1%} is not set:
+            send "&c%arg-1% não está preso."
+            stop
+
+        delete {jail.%uuid of arg-1%}
+
+        if {silent_jail.%uuid of arg-1%} is set:
+            delete {silent_jail.%uuid of arg-1%}
+            # UNJAIL SILENCIOSO – CAIXA VERDE PRIVADA
+            send " " to arg-1
+            send "&2━━━━━━━━━━━━━━━━━━━━" to arg-1
+            send " " to arg-1
+            send "&aVocê foi liberado da ScreenShare" to arg-1
+            send " " to arg-1
+            send "&2━━━━━━━━━━━━━━━━━━━━" to arg-1
+            send " " to arg-1
+        else:
+            # UNJAIL GLOBAL – CAIXA VERDE COM ESPAÇOS
+            broadcast " "
+            broadcast "&2━━━━━━━━━━━━━━━━━━━━"
+            broadcast "&a%arg-1% foi liberado da ScreenShare"
+            broadcast "&2━━━━━━━━━━━━━━━━━━━━"
+            broadcast " "
+            send " " to arg-1
+            send "&2━━━━━━━━━━━━━━━━━━━━" to arg-1
+            send " " to arg-1
+            send "&aVocê foi liberado da ScreenShare" to arg-1
+            send " " to arg-1
+            send "&2━━━━━━━━━━━━━━━━━━━━" to arg-1
+            send " " to arg-1
+
+        play sound "entity.experience_orb.pickup" with volume 1 and pitch 1 for all players
+
+        teleport arg-1 to spawn point of world of arg-1
+
+#################################
+# BLOQUEIOS
+#################################
+
+on command:
+    if {jail.%uuid of player%} is set:
+        cancel event
+        send "&cVocê está em ScreenShare."
+
+on player move:
+    if {jail.%uuid of player%} is set:
+        cancel event
+
+on chat:
+    if {jail.%uuid of player%} is set:
+        cancel event
+        loop all players:
+            if distance between player and loop-player <= {@localChatRadius}:
+                send "&7[LOCAL] &f%player%: %message%" to loop-player
+
+on quit:
+    if {jail.%uuid of player%} is set:
+        broadcast "&c%player% saiu durante ScreenShare!"
