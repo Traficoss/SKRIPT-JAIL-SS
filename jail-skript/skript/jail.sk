@@ -9,11 +9,6 @@ options:
 # SET / UNSET JAIL
 #################################
 
-command /setjail:
-    permission: jail.admin
-    trigger:
-        set {jail.loc} to location of player
-        send "&cLocal da jail definido permanentemente."
 
 command /unsetjail:
     permission: jail.admin
@@ -45,13 +40,6 @@ command /jail <player>:
 
         play sound "entity.enderman.teleport" with volume 1 and pitch 1 for all players
 
-        # MENSAGEM GLOBAL EM ESTILO CAIXA VERMELHA
-        broadcast " "
-        broadcast "&4━━━━━━━━━━━━━━━━━━━━"
-        broadcast "&c%arg-1% foi puxado para ScreenShare"
-        broadcast "&cPor: %player%"
-        broadcast "&4━━━━━━━━━━━━━━━━━━━━"
-        broadcast " "
 
         # MENSAGEM PRIVADA – ANYDESK
         send " " to arg-1
@@ -68,19 +56,9 @@ command /jail <player>:
         send "&4━━━━━━━━━━━━━━━━━━━━" to arg-1
         send " " to arg-1
 
-#################################
-# SILENT JAIL (SEM AVISO GLOBAL)
-#################################
 
 command /silentjail <player>:
     permission: jail.use
-    trigger:
-        if arg-1 is not online:
-            send "&cJogador não encontrado."
-            stop
-        if {jail.loc} is not set:
-            send "&cUse /setjail primeiro."
-            stop
 
         set {jail.%uuid of arg-1%} to true
         set {silent_jail.%uuid of arg-1%} to true
