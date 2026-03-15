@@ -6,6 +6,9 @@ Este script permite que staff coloque jogadores em **ScreenShare (SS)** para ver
 
 # O CODIGO ESTA EM SKRIPT (CODIGO NAO COMPLETO PARA PORTFÓLIO) PARA VER O PROJETO, ATUAL ESTA EM .JAR
 
+# VIDEO ABAIXO DOS COMANDOS E VISUALS
+[![Assistir vídeo](https://img.youtube.com/vi/C3Esl6hhRV8/maxresdefault.jpg)](https://www.youtube.com/watch?v=C3Esl6hhRV8)
+
 ---
 
 # ✨ Features
