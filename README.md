@@ -4,7 +4,7 @@ Sistema de **Jail e ScreenShare** feito para servidores Minecraft.
 
 Este script permite que staff coloque jogadores em **ScreenShare (SS)** para verificação, com suporte a **silent jail**, bloqueio de comandos e detecção de logout.
 
-# O CODIGO ESTA EM SKRIPT PARA VER O PROJETO, ATUAL ESTA EM .JAR
+# O CODIGO ESTA EM SKRIPT (CODIGO NAO COMPLETO PARA PORTFÓLIO) PARA VER O PROJETO, ATUAL ESTA EM .JAR
 
 ---
 
